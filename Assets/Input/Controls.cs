@@ -53,6 +53,33 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TongueHolding"",
+                    ""type"": ""Button"",
+                    ""id"": ""eb01cd47-f777-48d1-b530-926216f952bd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TonguePressed"",
+                    ""type"": ""Button"",
+                    ""id"": ""4c1a46df-d2df-4ab1-ba1e-92894c4feae6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TongueReleased"",
+                    ""type"": ""Button"",
+                    ""id"": ""31526efa-e607-4e46-963a-b4805e2d25a6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -88,6 +115,39 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ef274872-31a7-4e4a-a9cf-253580893fc3"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TongueHolding"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7faacae7-1591-485d-bcbe-1e9f9c3a4e00"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TonguePressed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a3eeb20a-87d9-4409-816b-774136e5666b"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TongueReleased"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -99,6 +159,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_PlayerControls_Movement = m_PlayerControls.FindAction("Movement", throwIfNotFound: true);
         m_PlayerControls_CameraMovement = m_PlayerControls.FindAction("CameraMovement", throwIfNotFound: true);
         m_PlayerControls_Jump = m_PlayerControls.FindAction("Jump", throwIfNotFound: true);
+        m_PlayerControls_TongueHolding = m_PlayerControls.FindAction("TongueHolding", throwIfNotFound: true);
+        m_PlayerControls_TonguePressed = m_PlayerControls.FindAction("TonguePressed", throwIfNotFound: true);
+        m_PlayerControls_TongueReleased = m_PlayerControls.FindAction("TongueReleased", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -161,6 +224,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControls_Movement;
     private readonly InputAction m_PlayerControls_CameraMovement;
     private readonly InputAction m_PlayerControls_Jump;
+    private readonly InputAction m_PlayerControls_TongueHolding;
+    private readonly InputAction m_PlayerControls_TonguePressed;
+    private readonly InputAction m_PlayerControls_TongueReleased;
     public struct PlayerControlsActions
     {
         private @Controls m_Wrapper;
@@ -168,6 +234,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_PlayerControls_Movement;
         public InputAction @CameraMovement => m_Wrapper.m_PlayerControls_CameraMovement;
         public InputAction @Jump => m_Wrapper.m_PlayerControls_Jump;
+        public InputAction @TongueHolding => m_Wrapper.m_PlayerControls_TongueHolding;
+        public InputAction @TonguePressed => m_Wrapper.m_PlayerControls_TonguePressed;
+        public InputAction @TongueReleased => m_Wrapper.m_PlayerControls_TongueReleased;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -186,6 +255,15 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
+                @TongueHolding.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTongueHolding;
+                @TongueHolding.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTongueHolding;
+                @TongueHolding.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTongueHolding;
+                @TonguePressed.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTonguePressed;
+                @TonguePressed.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTonguePressed;
+                @TonguePressed.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTonguePressed;
+                @TongueReleased.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTongueReleased;
+                @TongueReleased.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTongueReleased;
+                @TongueReleased.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTongueReleased;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -199,6 +277,15 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @TongueHolding.started += instance.OnTongueHolding;
+                @TongueHolding.performed += instance.OnTongueHolding;
+                @TongueHolding.canceled += instance.OnTongueHolding;
+                @TonguePressed.started += instance.OnTonguePressed;
+                @TonguePressed.performed += instance.OnTonguePressed;
+                @TonguePressed.canceled += instance.OnTonguePressed;
+                @TongueReleased.started += instance.OnTongueReleased;
+                @TongueReleased.performed += instance.OnTongueReleased;
+                @TongueReleased.canceled += instance.OnTongueReleased;
             }
         }
     }
@@ -208,5 +295,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnCameraMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnTongueHolding(InputAction.CallbackContext context);
+        void OnTonguePressed(InputAction.CallbackContext context);
+        void OnTongueReleased(InputAction.CallbackContext context);
     }
 }
