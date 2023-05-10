@@ -14,7 +14,7 @@ public enum TongueState
 public class PlayerLicking : MonoBehaviour
 {
     [SerializeField]
-    private Transform _tongueTransform;
+    private Transform _playerTransform;
 
     [SerializeField]
     private float _tongueMoveSpeed;
@@ -46,21 +46,21 @@ public class PlayerLicking : MonoBehaviour
 
     private void Awake()
     {
+        _transform = this.transform;
         _controls = new Controls();
-        _tongueCollider = _tongueTransform.GetComponent<Collider>();
+        _tongueCollider = _transform.GetComponent<Collider>();
         _tongueCollider.enabled = false;
 
         _controls.PlayerControls.TonguePressed.performed += TonguePressed;
         _controls.PlayerControls.TongueReleased.performed += TongueReleased;
 
-        _startingPosition = _tongueTransform.localPosition;
+        _startingPosition = _transform.localPosition;
 
-        _transform = this.transform;
     }
 
     private void TongueReleased(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        if (_holdingObject != null && !_pickedUpObjectDuringPress && _holdingObject.LickedReleased(_transform))
+        if (_holdingObject != null && !_pickedUpObjectDuringPress && _holdingObject.LickedReleased(_playerTransform))
         {
             _holdingObject = null;
         }
@@ -84,19 +84,19 @@ public class PlayerLicking : MonoBehaviour
 
         if (_holdingObject != null && !_pickedUpObjectDuringPress && _controls.PlayerControls.TongueHolding.inProgress)
         {
-            _holdingObject.HoldingLicked(_transform);
+            _holdingObject.HoldingLicked(_playerTransform);
         }
 
 
-        float zScale = _tongueTransform.localScale.z;
+        float zScale = _transform.localScale.z;
 
         switch (_state)
         {
             case TongueState.Holding:
 
                 _tongueCollider.enabled = false;
-                _tongueTransform.localScale = new Vector3(_tongueTransform.localScale.x, _tongueTransform.localScale.y, 0);
-                _tongueTransform.localPosition = new Vector3(_tongueTransform.localPosition.x, _tongueTransform.localPosition.y, _startingPosition.z);
+                _transform.localScale = new Vector3(_transform.localScale.x, _transform.localScale.y, 0);
+                _transform.localPosition = new Vector3(_transform.localPosition.x, _transform.localPosition.y, _startingPosition.z);
 
                 break;
 
@@ -106,9 +106,9 @@ public class PlayerLicking : MonoBehaviour
                 _tongueCollider.enabled = true;
 
                 zScale = Mathf.MoveTowards(zScale, _tongueMaxScale, _tongueMoveSpeed * Time.deltaTime);
-                _tongueTransform.localScale = new Vector3(_tongueTransform.localScale.x, _tongueTransform.localScale.y, zScale);
+                _transform.localScale = new Vector3(_transform.localScale.x, _transform.localScale.y, zScale);
 
-                _tongueTransform.localPosition = new Vector3(_tongueTransform.localPosition.x, _tongueTransform.localPosition.y, _startingPosition.z + zScale / 2);
+                _transform.localPosition = new Vector3(_transform.localPosition.x, _transform.localPosition.y, _startingPosition.z + zScale / 2);
 
                 if (zScale >= _tongueMaxScale || _holdingObject != null)
                 {
@@ -124,9 +124,9 @@ public class PlayerLicking : MonoBehaviour
 
 
                 zScale = Mathf.MoveTowards(zScale, 0, _tongueMoveSpeed * Time.deltaTime);
-                _tongueTransform.localScale = new Vector3(_tongueTransform.localScale.x, _tongueTransform.localScale.y, zScale);
+                _transform.localScale = new Vector3(_transform.localScale.x, _transform.localScale.y, zScale);
 
-                _tongueTransform.localPosition = new Vector3(_tongueTransform.localPosition.x, _tongueTransform.localPosition.y, _startingPosition.z + zScale / 2);
+                _transform.localPosition = new Vector3(_transform.localPosition.x, _transform.localPosition.y, _startingPosition.z + zScale / 2);
 
                 if (zScale <= 0)
                 {
@@ -156,7 +156,7 @@ public class PlayerLicking : MonoBehaviour
                 Debug.LogWarning($"{collisionObject} is in the lickable layer and does not have a lickable class attached");
             }
 
-            _holdingObject.Licked(_transform);
+            _holdingObject.Licked(_playerTransform);
 
             if (_controls.PlayerControls.TongueHolding.inProgress)
             {

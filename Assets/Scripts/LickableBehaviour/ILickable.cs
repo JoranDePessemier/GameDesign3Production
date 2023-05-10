@@ -4,7 +4,9 @@ using UnityEngine;
 
 public interface ILickable
 {
+
     void HoldingLicked(Transform playerTransform);
+
     void Licked(Transform playerTransform);
     bool LickedReleased(Transform playerTransform);
 }
