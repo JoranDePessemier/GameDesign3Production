@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,6 +33,15 @@ public class CharacterMovement : MonoBehaviour
 
     [SerializeField]
     private float _gravityMultiplierJumpRelease;
+
+    [Header("Moving Offset Calculation")]
+    [SerializeField]
+    Vector3 _sphereCastPosition;
+
+    [SerializeField]
+    float _sphereCastRadius;
+
+    Vector3 _movementOffset;
 
     private bool _jump;
     private bool _isHoldingJump;
@@ -74,7 +84,35 @@ public class CharacterMovement : MonoBehaviour
         ApplyGroundDrag();
         ApplySpeedLimitation();
         ApplyJump();
-        _charCtrl.Move(_velocity * Time.deltaTime);
+        CalculateMovingObjectOffset();
+        _charCtrl.Move(_velocity * Time.deltaTime + _movementOffset);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position + _sphereCastPosition, _sphereCastRadius);
+    }
+
+    private void CalculateMovingObjectOffset()
+    {
+        Collider[] colliders = Physics.OverlapSphere(_transform.position + _sphereCastPosition, _sphereCastRadius);
+        List<MovingObject> standingObjects = new List<MovingObject>();
+
+        foreach (Collider collider in colliders)
+        {
+            if(collider.transform.TryGetComponent<MovingObject>(out MovingObject moving))
+            {
+                standingObjects.Add(moving);
+            }
+        }
+
+        _movementOffset = Vector3.zero;
+
+        foreach (var standingObject in standingObjects)
+        {
+            _movementOffset += standingObject.MovementOffSet;
+        }
+
     }
 
     private void ApplyMovement()

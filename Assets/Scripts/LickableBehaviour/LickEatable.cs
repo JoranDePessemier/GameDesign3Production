@@ -9,6 +9,7 @@ public class LickEatable : MonoBehaviour, ILickable
     Renderer _renderer;
     Rigidbody _body;
 
+    bool ILickable.IsEatable { get; set; } = true;
 
     private Material _defaultMaterial;
 

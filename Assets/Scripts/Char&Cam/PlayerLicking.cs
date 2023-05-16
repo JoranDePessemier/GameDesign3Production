@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +26,9 @@ public class PlayerLicking : MonoBehaviour
     [SerializeField]
     private LayerMask _lickableLayer;
 
+    [SerializeField]
+    private LayerMask _nonLickableLayer;
+
 
 
 
@@ -38,9 +42,13 @@ public class PlayerLicking : MonoBehaviour
 
     private TongueState _state = TongueState.Holding;
 
-    private ILickable _holdingObject;
+    public ILickable HoldingObject { get; private set; }
 
     private bool _pickedUpObjectDuringPress;
+
+    public event EventHandler<EventArgs> StartedHolding;
+
+    public event EventHandler<EventArgs> StoppedHolding;
 
 
 
@@ -60,9 +68,10 @@ public class PlayerLicking : MonoBehaviour
 
     private void TongueReleased(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        if (_holdingObject != null && !_pickedUpObjectDuringPress && _holdingObject.LickedReleased(_playerTransform))
+        if (HoldingObject != null && !_pickedUpObjectDuringPress && HoldingObject.LickedReleased(_playerTransform))
         {
-            _holdingObject = null;
+            HoldingObject = null;
+            OnStoppedHolding(EventArgs.Empty);
         }
 
         _pickedUpObjectDuringPress = false;
@@ -71,7 +80,7 @@ public class PlayerLicking : MonoBehaviour
 
     private void TonguePressed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        if (_state == TongueState.Holding && _holdingObject == null)
+        if (_state == TongueState.Holding && HoldingObject == null)
         {
             _state = TongueState.OutGoing;
         }
@@ -82,9 +91,9 @@ public class PlayerLicking : MonoBehaviour
     private void Update()
     {
 
-        if (_holdingObject != null && !_pickedUpObjectDuringPress && _controls.PlayerControls.TongueHolding.inProgress)
+        if (HoldingObject != null && !_pickedUpObjectDuringPress && _controls.PlayerControls.TongueHolding.inProgress)
         {
-            _holdingObject.HoldingLicked(_playerTransform);
+            HoldingObject.HoldingLicked(_playerTransform);
         }
 
 
@@ -110,7 +119,7 @@ public class PlayerLicking : MonoBehaviour
 
                 _transform.localPosition = new Vector3(_transform.localPosition.x, _transform.localPosition.y, _startingPosition.z + zScale / 2);
 
-                if (zScale >= _tongueMaxScale || _holdingObject != null)
+                if (zScale >= _tongueMaxScale || HoldingObject != null)
                 {
                     _state = TongueState.InGoing;
                 }
@@ -133,6 +142,8 @@ public class PlayerLicking : MonoBehaviour
                     _state = TongueState.Holding;
                 }
 
+
+
                 break;
 
         }
@@ -149,14 +160,24 @@ public class PlayerLicking : MonoBehaviour
 
         if ((_lickableLayer & (1 << collisionObject.layer)) != 0)
         {
-            collisionObject.SetActive(false);
-
-            if (!collisionObject.TryGetComponent<ILickable>(out _holdingObject))
+            
+            if (!collisionObject.TryGetComponent<ILickable>(out ILickable lickCollision))
             {
                 Debug.LogWarning($"{collisionObject} is in the lickable layer and does not have a lickable class attached");
             }
 
-            _holdingObject.Licked(_playerTransform);
+            lickCollision.Licked(_playerTransform);
+
+            if (!lickCollision.IsEatable)
+            {
+                HoldingObject = null;
+                _state = TongueState.InGoing;
+            }
+            else
+            {
+                HoldingObject = lickCollision;
+                OnStartedHolding(EventArgs.Empty);
+            }
 
             if (_controls.PlayerControls.TongueHolding.inProgress)
             {
@@ -164,5 +185,21 @@ public class PlayerLicking : MonoBehaviour
             }
 
         }
+        else if((_nonLickableLayer & (1 << collisionObject.layer)) != 0)
+        {
+            _state = TongueState.InGoing;
+        }
+    }
+
+    private void OnStartedHolding(EventArgs eventArgs)
+    {
+        var handler = StartedHolding;
+        handler?.Invoke(this, eventArgs);
+    }
+
+    private void OnStoppedHolding(EventArgs eventArgs)
+    {
+        var handler = StoppedHolding;
+        handler?.Invoke(this, eventArgs);
     }
 }
