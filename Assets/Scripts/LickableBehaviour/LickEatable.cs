@@ -31,7 +31,7 @@ public class LickEatable : MonoBehaviour, ILickable
     {
         _transform = this.transform;
         _collision = this.GetComponent<Collider>();
-        _renderer = this.GetComponent<Renderer>();
+        _renderer = this.GetComponentInChildren<Renderer>();
         _defaultMaterial = _renderer.material;
         _body = this.GetComponent<Rigidbody>();
 
