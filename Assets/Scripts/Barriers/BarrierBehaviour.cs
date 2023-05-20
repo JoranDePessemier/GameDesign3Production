@@ -22,7 +22,7 @@ public class BarrierBehaviour : MonoBehaviour
         _lickingScript.StartedHolding += Licking_StartedHolding;
         _lickingScript.StoppedHolding += Licking_StoppedHolding;
 
-        _collisionGameObject.layer = _playerCollisionLayer;
+        _collisionGameObject.layer = _noPlayerCollisionLayer;
     }
 
     private void Licking_StoppedHolding(object sender, EventArgs e)

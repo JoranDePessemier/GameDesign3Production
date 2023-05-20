@@ -4,7 +4,10 @@ using UnityEngine;
 
 public interface ILickable
 {
-     bool IsEatable { get; protected set; }
+    bool IsEatable { get;}
+
+    GameObject AttachedObject { get; }
+
     void HoldingLicked(Transform playerTransform);
 
     void Licked(Transform playerTransform);

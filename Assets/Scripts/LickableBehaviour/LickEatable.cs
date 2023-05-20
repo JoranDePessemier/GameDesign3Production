@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LickEatable : MonoBehaviour, ILickable
+public class LickEatable : MonoBehaviour, ILickable, IRespawn
 {
     Transform _transform;
     Collider _collision;
     Renderer _renderer;
     Rigidbody _body;
+    Vector3 _originalPosition;
 
-    bool ILickable.IsEatable { get; set; } = true;
+    bool ILickable.IsEatable => true;
+    GameObject ILickable.AttachedObject { get { return this.gameObject; } }
 
     private Material _defaultMaterial;
 
@@ -25,6 +27,9 @@ public class LickEatable : MonoBehaviour, ILickable
     [SerializeField]
     private LayerMask _collisionCheckLayer;
 
+    [SerializeField]
+    private Vector3 _respawnOffset;
+
     private bool _inCollision;
 
     private void Awake()
@@ -34,7 +39,7 @@ public class LickEatable : MonoBehaviour, ILickable
         _renderer = this.GetComponentInChildren<Renderer>();
         _defaultMaterial = _renderer.material;
         _body = this.GetComponent<Rigidbody>();
-
+        _originalPosition = _transform.position;
     }
 
     public void HoldingLicked(Transform playerTransform)
@@ -106,5 +111,15 @@ public class LickEatable : MonoBehaviour, ILickable
         {
             _inCollision = false;
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawLine(transform.position,transform.position + _respawnOffset);
+    }
+
+    public void Respawn()
+    {
+        _transform.position = _originalPosition + _respawnOffset;
     }
 }

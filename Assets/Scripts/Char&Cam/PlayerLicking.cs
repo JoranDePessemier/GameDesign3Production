@@ -50,6 +50,8 @@ public class PlayerLicking : MonoBehaviour
 
     public event EventHandler<EventArgs> StoppedHolding;
 
+    private Renderer _renderer;
+
 
 
     private void Awake()
@@ -63,6 +65,8 @@ public class PlayerLicking : MonoBehaviour
         _controls.PlayerControls.TongueReleased.performed += TongueReleased;
 
         _startingPosition = _transform.localPosition;
+
+        _renderer = this.GetComponent<Renderer>();
 
     }
 
@@ -107,6 +111,8 @@ public class PlayerLicking : MonoBehaviour
                 _transform.localScale = new Vector3(_transform.localScale.x, _transform.localScale.y, 0);
                 _transform.localPosition = new Vector3(_transform.localPosition.x, _transform.localPosition.y, _startingPosition.z);
 
+                _renderer.enabled = false;
+
                 break;
 
 
@@ -124,6 +130,7 @@ public class PlayerLicking : MonoBehaviour
                     _state = TongueState.InGoing;
                 }
 
+                _renderer.enabled = true;
 
                 break;
 
@@ -142,7 +149,7 @@ public class PlayerLicking : MonoBehaviour
                     _state = TongueState.Holding;
                 }
 
-
+                _renderer.enabled = true;
 
                 break;
 
@@ -201,5 +208,12 @@ public class PlayerLicking : MonoBehaviour
     {
         var handler = StoppedHolding;
         handler?.Invoke(this, eventArgs);
+    }
+
+    internal void RemoveCurrentHoldingObject()
+    {
+        HoldingObject.AttachedObject.SetActive(false);
+        HoldingObject = null;
+        OnStoppedHolding(EventArgs.Empty);
     }
 }

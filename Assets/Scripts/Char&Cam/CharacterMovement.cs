@@ -41,6 +41,8 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField]
     float _sphereCastRadius;
 
+    public bool CanMove { get; set; } = true;
+
     Vector3 _movementOffset;
 
     private bool _jump;
@@ -85,7 +87,11 @@ public class CharacterMovement : MonoBehaviour
         ApplySpeedLimitation();
         ApplyJump();
         CalculateMovingObjectOffset();
-        _charCtrl.Move(_velocity * Time.deltaTime + _movementOffset);
+        if (CanMove)
+        {
+            _charCtrl.Move(_velocity * Time.deltaTime + _movementOffset);
+        }
+
     }
 
     private void OnDrawGizmos()

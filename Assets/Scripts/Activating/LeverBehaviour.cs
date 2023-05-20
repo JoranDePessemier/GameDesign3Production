@@ -10,13 +10,19 @@ public class LeverBehaviour : MonoBehaviour, ILickable
 
     private bool _isActivated = false;
 
-    bool ILickable.IsEatable { get; set; } = false;
+    bool ILickable.IsEatable => true;
+    GameObject ILickable.AttachedObject { get { return this.gameObject; } }
 
     [SerializeField]
     private UnityEvent Activated;
 
     [SerializeField]
     private UnityEvent DeActivated;
+
+    private void Awake()
+    {
+    
+    }
 
     public void HoldingLicked(Transform playerTransform)
     {
