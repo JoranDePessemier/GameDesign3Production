@@ -165,13 +165,14 @@ public class PlayerLicking : MonoBehaviour
     {
         GameObject collisionObject = other.gameObject;
 
-        if ((_lickableLayer & (1 << collisionObject.layer)) != 0)
+        if ((_lickableLayer & (1 << collisionObject.layer)) != 0 && HoldingObject == null)
         {
             
             if (!collisionObject.TryGetComponent<ILickable>(out ILickable lickCollision))
             {
                 Debug.LogWarning($"{collisionObject} is in the lickable layer and does not have a lickable class attached");
             }
+            
 
             lickCollision.Licked(_playerTransform);
 

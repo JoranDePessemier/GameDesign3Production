@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BarrierBehaviour : MonoBehaviour
 {
@@ -16,6 +17,12 @@ public class BarrierBehaviour : MonoBehaviour
     [SerializeField]
     private int _playerCollisionLayer;
 
+    [SerializeField]
+    private UnityEvent _barrierActivated;
+
+    [SerializeField]
+    private UnityEvent _barrierDeActivated;
+
     void Start()
     {
         _lickingScript = FindObjectOfType<PlayerLicking>();
@@ -28,11 +35,13 @@ public class BarrierBehaviour : MonoBehaviour
     private void Licking_StoppedHolding(object sender, EventArgs e)
     {
         _collisionGameObject.layer = _noPlayerCollisionLayer;
+        _barrierDeActivated.Invoke();
     }
 
     private void Licking_StartedHolding(object sender, EventArgs e)
     {
         _collisionGameObject.layer = _playerCollisionLayer;
+        _barrierActivated.Invoke();
     }
 
 
