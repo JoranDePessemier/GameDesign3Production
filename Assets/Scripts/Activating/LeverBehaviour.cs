@@ -10,7 +10,7 @@ public class LeverBehaviour : MonoBehaviour, ILickable
 
     private bool _isActivated = false;
 
-    bool ILickable.IsEatable => true;
+    bool ILickable.IsEatable => false;
     GameObject ILickable.AttachedObject { get { return this.gameObject; } }
 
     [SerializeField]
