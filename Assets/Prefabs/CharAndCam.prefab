@@ -448,8 +448,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _acceleration: 5
-  _maxRunningSpeed: 8.333333
-  _rotationSpeed: 10
+  _maxRunningSpeed: 5.7
+  _rotationSpeed: 20
   _dragOnGround: 10
   _jumpForce: 5
   _gravityMultiplierHoldingJump: 0.8

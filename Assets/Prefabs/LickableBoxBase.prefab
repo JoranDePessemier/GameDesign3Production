@@ -99,7 +99,7 @@ MonoBehaviour:
   _collisionCheckLayer:
     serializedVersion: 2
     m_Bits: 200
-  _respawnOffset: {x: 0, y: 4.77, z: 0}
+  _respawnOffset: {x: 0, y: 10, z: 0}
 --- !u!114 &7215498292314130177
 MonoBehaviour:
   m_ObjectHideFlags: 0

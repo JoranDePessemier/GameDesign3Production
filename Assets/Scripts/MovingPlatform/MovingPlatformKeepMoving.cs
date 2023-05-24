@@ -7,7 +7,15 @@ public class MovingPlatformKeepMoving : MovingPlatformBase
     [SerializeField]
     private bool _circularMovement;
 
+    [SerializeField]
+    private bool _startActivated;
+
     private bool _movingBack;
+
+    protected override void Awake()
+    {
+        _activated = _startActivated;
+    }
 
     protected override void ChangeMovingPoint()
     {

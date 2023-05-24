@@ -19,15 +19,17 @@ public class MovingPlatformBase : Activatable
 
     protected bool _activated;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _currentMovingPointIndex = 0;
         _platformBody.position = _movingPoints[_currentMovingPointIndex].position;
+
+        
     }
 
     public override void Activate()
     {
-        _activated = true;
+        _activated = !_activated;
     }
 
     protected virtual void FixedUpdate()
@@ -57,6 +59,6 @@ public class MovingPlatformBase : Activatable
 
     public override void Deactivate()
     {
-        _activated = false;
+        _activated = !_activated;
     }
 }
