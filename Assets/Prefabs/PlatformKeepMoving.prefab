@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 435514134775936746}
   - component: {fileID: 4394729755930296324}
   - component: {fileID: 2182482937441519086}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SM_Prop_MetalPlate_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4792476528944648824}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MovingPoint
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
@@ -123,7 +123,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2771885580310274597}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MovingPoint 2
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
@@ -155,7 +155,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9041619601049163217}
   - component: {fileID: 3278917450033880939}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlatformKeepMoving
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,6 +198,7 @@ MonoBehaviour:
   _movingSpeed: 5
   _platformBody: {fileID: 8136208917895177288}
   _circularMovement: 0
+  _startActivated: 0
 --- !u!1 &7691126830340948453
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,7 +211,7 @@ GameObject:
   - component: {fileID: 8136208917895177288}
   - component: {fileID: 2440337234692175003}
   - component: {fileID: 3514938161376517340}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}

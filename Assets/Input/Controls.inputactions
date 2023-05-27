@@ -24,12 +24,12 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Jump",
+                    "name": "JumpPressed",
                     "type": "Button",
                     "id": "9dccf939-f926-4d92-81d8-66a872a90dec",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -57,6 +57,15 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "JumpHolding",
+                    "type": "Button",
+                    "id": "7ff1de3b-8758-4793-8a41-84a6baa27dc7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold",
                     "initialStateCheck": false
                 }
             ],
@@ -87,10 +96,10 @@
                     "name": "",
                     "id": "f97de342-39d5-47d7-9b2d-0ab450ef3cfd",
                     "path": "<Gamepad>/buttonSouth",
-                    "interactions": "Press,Hold",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump",
+                    "action": "JumpPressed",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -124,6 +133,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "TongueReleased",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cda57c23-4f1f-4c59-86ea-9451273781e2",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JumpHolding",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

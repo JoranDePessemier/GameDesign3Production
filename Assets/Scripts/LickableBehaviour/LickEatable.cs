@@ -1,19 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LickEatable : MonoBehaviour, ILickable, IRespawn
 {
     Transform _transform;
-    Collider _collision;
-    Renderer _renderer;
+
+
     Rigidbody _body;
     Vector3 _originalPosition;
 
     bool ILickable.IsEatable => true;
     GameObject ILickable.AttachedObject { get { return this.gameObject; } }
 
-    private Material _defaultMaterial;
+    private Material[] _defaultMaterials;
 
     [SerializeField]
     private Material _previewMaterialPlacable;
@@ -28,16 +30,31 @@ public class LickEatable : MonoBehaviour, ILickable, IRespawn
     private LayerMask _collisionCheckLayer;
 
     [SerializeField]
+    Collider _collision;
+
+    [SerializeField]
     private Vector3 _respawnOffset;
+
+    [SerializeField]
+    Renderer[] _models;
+
+    public event EventHandler<EventArgs> Eaten;
+
+    public event EventHandler<EventArgs> Released;
 
     private bool _inCollision;
 
     private void Awake()
     {
         _transform = this.transform;
-        _collision = this.GetComponent<Collider>();
-        _renderer = this.GetComponentInChildren<Renderer>();
-        _defaultMaterial = _renderer.material;
+
+        _defaultMaterials = new Material[_models.Length];
+
+        for (int i = 0; i < _models.Length; i++)
+        {
+            _defaultMaterials[i] = _models[i].material;
+        }
+        
         _body = this.GetComponent<Rigidbody>();
         _originalPosition = _transform.position;
     }
@@ -48,11 +65,11 @@ public class LickEatable : MonoBehaviour, ILickable, IRespawn
 
         if (_inCollision)
         {
-            _renderer.material = _previewMaterialNonPlacable;
+            ChangeMaterial(_previewMaterialNonPlacable);
         }
         else
         {
-            _renderer.material = _previewMaterialPlacable;
+            ChangeMaterial(_previewMaterialPlacable);
 
         }
 
@@ -66,7 +83,28 @@ public class LickEatable : MonoBehaviour, ILickable, IRespawn
         _collision.enabled = false;
         _inCollision = false;
         _body.useGravity = false;
+        OnEaten(EventArgs.Empty);
     }
+
+    private void ChangeMaterial(Material material)
+    {
+        if(material == null)
+        {
+            for (int i = 0; i < _models.Length; i++)
+            {
+                _models[i].material = _defaultMaterials[i];
+            }
+        }
+        else
+        {
+            foreach (var model in _models)
+            {
+                model.material = material;
+            }
+        }
+    }
+
+    private void ChangeMaterial() => ChangeMaterial(null);
 
     public  bool LickedReleased(Transform playerTransform)
     {
@@ -80,14 +118,16 @@ public class LickEatable : MonoBehaviour, ILickable, IRespawn
         }
         else
         {
-            _transform.gameObject.SetActive(true);
-            _renderer.material = _defaultMaterial;
+            _transform?.gameObject.SetActive(true);
+            ChangeMaterial();
             _collision.enabled = true;
 
             _transform.position = playerTransform.position + playerTransform.forward * _dropDistanceFromPlayer;
             _body.useGravity = true;
 
             _inCollision = false;
+            OnReleased(EventArgs.Empty);
+
             return true;
         }
 
@@ -121,5 +161,17 @@ public class LickEatable : MonoBehaviour, ILickable, IRespawn
     public void Respawn()
     {
         _transform.position = _originalPosition + _respawnOffset;
+    }
+
+    private void OnEaten(EventArgs eventArgs)
+    {
+        var handler = Eaten;
+        handler?.Invoke(this, eventArgs);
+    }
+
+    private void OnReleased(EventArgs eventArgs)
+    {
+        var handler = Released;
+        handler?.Invoke(this, eventArgs);
     }
 }

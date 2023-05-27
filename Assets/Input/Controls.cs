@@ -46,12 +46,12 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Jump"",
+                    ""name"": ""JumpPressed"",
                     ""type"": ""Button"",
                     ""id"": ""9dccf939-f926-4d92-81d8-66a872a90dec"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -79,6 +79,15 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=1)"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""JumpHolding"",
+                    ""type"": ""Button"",
+                    ""id"": ""7ff1de3b-8758-4793-8a41-84a6baa27dc7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -109,10 +118,10 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""f97de342-39d5-47d7-9b2d-0ab450ef3cfd"",
                     ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": ""Press,Hold"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Jump"",
+                    ""action"": ""JumpPressed"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -148,6 +157,17 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""TongueReleased"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cda57c23-4f1f-4c59-86ea-9451273781e2"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""JumpHolding"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -158,10 +178,11 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_PlayerControls = asset.FindActionMap("PlayerControls", throwIfNotFound: true);
         m_PlayerControls_Movement = m_PlayerControls.FindAction("Movement", throwIfNotFound: true);
         m_PlayerControls_CameraMovement = m_PlayerControls.FindAction("CameraMovement", throwIfNotFound: true);
-        m_PlayerControls_Jump = m_PlayerControls.FindAction("Jump", throwIfNotFound: true);
+        m_PlayerControls_JumpPressed = m_PlayerControls.FindAction("JumpPressed", throwIfNotFound: true);
         m_PlayerControls_TongueHolding = m_PlayerControls.FindAction("TongueHolding", throwIfNotFound: true);
         m_PlayerControls_TonguePressed = m_PlayerControls.FindAction("TonguePressed", throwIfNotFound: true);
         m_PlayerControls_TongueReleased = m_PlayerControls.FindAction("TongueReleased", throwIfNotFound: true);
+        m_PlayerControls_JumpHolding = m_PlayerControls.FindAction("JumpHolding", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -223,20 +244,22 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private IPlayerControlsActions m_PlayerControlsActionsCallbackInterface;
     private readonly InputAction m_PlayerControls_Movement;
     private readonly InputAction m_PlayerControls_CameraMovement;
-    private readonly InputAction m_PlayerControls_Jump;
+    private readonly InputAction m_PlayerControls_JumpPressed;
     private readonly InputAction m_PlayerControls_TongueHolding;
     private readonly InputAction m_PlayerControls_TonguePressed;
     private readonly InputAction m_PlayerControls_TongueReleased;
+    private readonly InputAction m_PlayerControls_JumpHolding;
     public struct PlayerControlsActions
     {
         private @Controls m_Wrapper;
         public PlayerControlsActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_PlayerControls_Movement;
         public InputAction @CameraMovement => m_Wrapper.m_PlayerControls_CameraMovement;
-        public InputAction @Jump => m_Wrapper.m_PlayerControls_Jump;
+        public InputAction @JumpPressed => m_Wrapper.m_PlayerControls_JumpPressed;
         public InputAction @TongueHolding => m_Wrapper.m_PlayerControls_TongueHolding;
         public InputAction @TonguePressed => m_Wrapper.m_PlayerControls_TonguePressed;
         public InputAction @TongueReleased => m_Wrapper.m_PlayerControls_TongueReleased;
+        public InputAction @JumpHolding => m_Wrapper.m_PlayerControls_JumpHolding;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -252,9 +275,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @CameraMovement.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnCameraMovement;
                 @CameraMovement.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnCameraMovement;
                 @CameraMovement.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnCameraMovement;
-                @Jump.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
-                @Jump.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
-                @Jump.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
+                @JumpPressed.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJumpPressed;
+                @JumpPressed.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJumpPressed;
+                @JumpPressed.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJumpPressed;
                 @TongueHolding.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTongueHolding;
                 @TongueHolding.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTongueHolding;
                 @TongueHolding.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTongueHolding;
@@ -264,6 +287,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @TongueReleased.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTongueReleased;
                 @TongueReleased.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTongueReleased;
                 @TongueReleased.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTongueReleased;
+                @JumpHolding.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJumpHolding;
+                @JumpHolding.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJumpHolding;
+                @JumpHolding.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJumpHolding;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -274,9 +300,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @CameraMovement.started += instance.OnCameraMovement;
                 @CameraMovement.performed += instance.OnCameraMovement;
                 @CameraMovement.canceled += instance.OnCameraMovement;
-                @Jump.started += instance.OnJump;
-                @Jump.performed += instance.OnJump;
-                @Jump.canceled += instance.OnJump;
+                @JumpPressed.started += instance.OnJumpPressed;
+                @JumpPressed.performed += instance.OnJumpPressed;
+                @JumpPressed.canceled += instance.OnJumpPressed;
                 @TongueHolding.started += instance.OnTongueHolding;
                 @TongueHolding.performed += instance.OnTongueHolding;
                 @TongueHolding.canceled += instance.OnTongueHolding;
@@ -286,6 +312,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @TongueReleased.started += instance.OnTongueReleased;
                 @TongueReleased.performed += instance.OnTongueReleased;
                 @TongueReleased.canceled += instance.OnTongueReleased;
+                @JumpHolding.started += instance.OnJumpHolding;
+                @JumpHolding.performed += instance.OnJumpHolding;
+                @JumpHolding.canceled += instance.OnJumpHolding;
             }
         }
     }
@@ -294,9 +323,10 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnCameraMovement(InputAction.CallbackContext context);
-        void OnJump(InputAction.CallbackContext context);
+        void OnJumpPressed(InputAction.CallbackContext context);
         void OnTongueHolding(InputAction.CallbackContext context);
         void OnTonguePressed(InputAction.CallbackContext context);
         void OnTongueReleased(InputAction.CallbackContext context);
+        void OnJumpHolding(InputAction.CallbackContext context);
     }
 }

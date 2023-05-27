@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cMovement: {fileID: 5720489233606220740}
-  _rotateSpeed: 80
+  _rotateSpeed: {x: 100, y: 60}
   _cameraY: {fileID: 5720489232731608491}
 --- !u!1 &5720489233317889176
 GameObject:
@@ -328,8 +328,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 2.3777094, z: 0.25630498}
-  m_Center: {x: 0, y: -0.5714624, z: 0.4243666}
+  m_Size: {x: 1, y: 1.4656339, z: 0.25630498}
+  m_Center: {x: 0, y: -0.115424395, z: 0.4243666}
 --- !u!114 &5720489233444809384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,8 +449,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _acceleration: 5
   _maxRunningSpeed: 5.7
+  _maxAirSpeed: 4.18
   _rotationSpeed: 20
   _dragOnGround: 10
+  _dragInAir: 10
   _jumpForce: 5
   _gravityMultiplierHoldingJump: 0.8
   _gravityMultiplierJumpRelease: 2

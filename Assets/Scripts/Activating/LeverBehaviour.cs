@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class LeverBehaviour : MonoBehaviour, ILickable
+public class LeverBehaviour : MonoBehaviour, ILickable, IActivator
 {
     [SerializeField]
     private List<Activatable> _activatableObjects = new List<Activatable>();
@@ -13,15 +13,22 @@ public class LeverBehaviour : MonoBehaviour, ILickable
     bool ILickable.IsEatable => false;
     GameObject ILickable.AttachedObject { get { return this.gameObject; } }
 
+    public List<Activatable> ActivatableObjects
+    {
+        get { return _activatableObjects; }
+        set { _activatableObjects = value; }
+    }
+
+
     [SerializeField]
     private UnityEvent Activated;
 
     [SerializeField]
     private UnityEvent DeActivated;
 
-    private void Awake()
+    private void Start()
     {
-    
+       SendPresenceToActivatables();
     }
 
     public void HoldingLicked(Transform playerTransform)
@@ -36,7 +43,7 @@ public class LeverBehaviour : MonoBehaviour, ILickable
         if (_isActivated)
         {
             Activated?.Invoke();
-            foreach (Activatable activatable in _activatableObjects)
+            foreach (Activatable activatable in ActivatableObjects)
             {
                     activatable.Activate();        
             }
@@ -44,7 +51,7 @@ public class LeverBehaviour : MonoBehaviour, ILickable
         else
         {
             DeActivated?.Invoke();
-            foreach (Activatable activatable in _activatableObjects)
+            foreach (Activatable activatable in ActivatableObjects)
             {
                 activatable.Deactivate();
             }
@@ -58,5 +65,11 @@ public class LeverBehaviour : MonoBehaviour, ILickable
         return true;
     }
 
-
+    public void SendPresenceToActivatables()
+    {
+        foreach (Activatable activatable in ActivatableObjects)
+        {
+            activatable.Activators.Add(this);
+        }
+    }
 }

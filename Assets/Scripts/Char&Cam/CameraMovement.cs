@@ -9,7 +9,7 @@ public class CameraMovement : MonoBehaviour
     private CharacterMovement _cMovement;
 
     [SerializeField]
-    private float _rotateSpeed;
+    private Vector2 _rotateSpeed;
 
     [SerializeField]
     private Transform _cameraY;
@@ -46,10 +46,10 @@ public class CameraMovement : MonoBehaviour
 
 
 
-        _currentYRotation -= stickY * Time.deltaTime * _rotateSpeed;
+        _currentYRotation -= stickY * Time.deltaTime * _rotateSpeed.y;
         _currentYRotation = Mathf.Clamp(_currentYRotation, -90, 90);
 
-        _transform.Rotate(0, stickX * Time.deltaTime * _rotateSpeed, 0);
+        _transform.Rotate(0, stickX * Time.deltaTime * _rotateSpeed.x, 0);
         _cameraY.eulerAngles = new Vector3(_currentYRotation, _cameraY.eulerAngles.y, _cameraY.eulerAngles.z);
     }
 }
