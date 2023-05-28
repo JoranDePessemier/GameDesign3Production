@@ -10,17 +10,25 @@ public class RespawnTracker : MonoBehaviour
 
     public  Vector3 RespawnPoint { get; set; }
 
+    public Vector3 RespawnForward { get; set; }
+
     public bool RespawnChangedSinceStart { get; set; }
 
     private SpawnPoint _previousSpawn;
 
-    internal void SetSpawn(SpawnPoint spawnObject, Vector3 spawn)
+    internal void SetSpawn(SpawnPoint spawnObject, Transform spawn)
     {
         RespawnChangedSinceStart = true;
-        RespawnPoint = spawn;
-        _previousSpawn?.SetAsInActive();
-        _previousSpawn = spawnObject;
-        _previousSpawn.SetAsActive();
+        RespawnPoint = spawn.position;
+        RespawnForward = spawn.forward;
+
+        if(spawnObject != _previousSpawn)
+        {
+            _previousSpawn?.SetAsInActive();
+            _previousSpawn = spawnObject;
+            _previousSpawn.SetAsActive();
+        }
+
 
     }
 

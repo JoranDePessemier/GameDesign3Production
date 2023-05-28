@@ -4,14 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class SpawnPoint : MonoBehaviour, ILickable
+public class SpawnPoint : MonoBehaviour
 {
-    public bool IsEatable => false;
-
-    public GameObject AttachedObject => this.gameObject;
-
-    [SerializeField]
-    private Vector3 _spawnPointOffset;
 
     [SerializeField]
     private UnityEvent _activated;
@@ -19,26 +13,24 @@ public class SpawnPoint : MonoBehaviour, ILickable
     [SerializeField]
     private UnityEvent _deactivated;
 
-    private Vector3 _spawnPointPosition;
+    [SerializeField]
+    private Transform _spawnPosition;
 
-    private void Awake()
+    [SerializeField]
+    private LayerMask _playerLayer;
+
+
+
+    private void OnTriggerEnter(Collider other)
     {
-        _spawnPointPosition = this.transform.position;
+        GameObject collisionObject = other.gameObject;
+
+        if((_playerLayer & (1 << collisionObject.layer)) != 0)
+        {
+            RespawnTracker.Instance.SetSpawn(this, _spawnPosition);
+        }
     }
 
-    public void HoldingLicked(Transform playerTransform)
-    {
-    }
-
-    public void Licked(Transform playerTransform)
-    {
-        RespawnTracker.Instance.SetSpawn(this, _spawnPointPosition + _spawnPointOffset);
-    }
-
-    public bool LickedReleased(Transform playerTransform)
-    {
-        return true;
-    }
 
     internal void SetAsActive()
     {
@@ -47,11 +39,7 @@ public class SpawnPoint : MonoBehaviour, ILickable
 
     internal void SetAsInActive()
     {
-        _activated.Invoke();
+        _deactivated.Invoke();
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawLine(transform.position,transform.position + _spawnPointOffset);
-    }
 }

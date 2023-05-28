@@ -19,6 +19,8 @@ public class MovingPlatformBase : Activatable
 
     protected bool _activated;
 
+    protected bool _canChangePivotPoint = true;
+
     protected virtual void Awake()
     {
         _currentMovingPointIndex = 0;
@@ -43,7 +45,7 @@ public class MovingPlatformBase : Activatable
             DeactivatedMovement();
         }
 
-        if(_platformBody.position.Equals(_movingPoints[_currentMovingPointIndex].position))
+        if(_platformBody.position.Equals(_movingPoints[_currentMovingPointIndex].position) && _canChangePivotPoint)
         {
             ChangeMovingPoint();
         }

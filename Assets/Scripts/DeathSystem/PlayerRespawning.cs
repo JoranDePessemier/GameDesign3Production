@@ -11,6 +11,7 @@ public class PlayerRespawning : MonoBehaviour, IRespawn
     private void Awake()
     {
         _movementScript = this.GetComponent<CharacterMovement>();
+
     }
 
     private void Start()
@@ -18,7 +19,11 @@ public class PlayerRespawning : MonoBehaviour, IRespawn
         _movementScript.CanMove = false;
         if (RespawnTracker.Instance.RespawnChangedSinceStart)
         {
+
             transform.position = RespawnTracker.Instance.RespawnPoint;
+            transform.forward = RespawnTracker.Instance.RespawnForward;
+
+            FindObjectOfType<CameraMovement>().transform.forward = RespawnTracker.Instance.RespawnForward;
         }
         StartCoroutine(ReEnableMovement());
 

@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cMovement: {fileID: 5720489233606220740}
-  _rotateSpeed: {x: 100, y: 60}
+  _rotateSpeed: {x: 180, y: 60}
   _cameraY: {fileID: 5720489232731608491}
 --- !u!1 &5720489233317889176
 GameObject:
@@ -110,7 +110,6 @@ Transform:
   m_Children:
   - {fileID: 5720489233606220742}
   - {fileID: 5720489232859980960}
-  - {fileID: 3715357653255355126}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -245,6 +244,7 @@ GameObject:
   - component: {fileID: 5720489233444809386}
   - component: {fileID: 5720489233444809387}
   - component: {fileID: 5720489233444809384}
+  - component: {fileID: 4795910921811029873}
   m_Layer: 9
   m_Name: Tongue
   m_TagString: Untagged
@@ -328,8 +328,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.4656339, z: 0.25630498}
-  m_Center: {x: 0, y: -0.115424395, z: 0.4243666}
+  m_Size: {x: 1, y: 1.975666, z: 0.25630498}
+  m_Center: {x: 0, y: -0.3704406, z: 0.4243666}
 --- !u!114 &5720489233444809384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,6 +351,22 @@ MonoBehaviour:
   _nonLickableLayer:
     serializedVersion: 2
     m_Bits: 320
+--- !u!54 &4795910921811029873
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5720489233444809381}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5720489233606220743
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,50 +484,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94e4a8d2568afab45990fc391f2bf26a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &9162374288433620806
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3715357653255355126}
-  - component: {fileID: 784937401351198309}
-  m_Layer: 0
-  m_Name: RespawnTracking
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3715357653255355126
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9162374288433620806}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5720489233317889183}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &784937401351198309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9162374288433620806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc7bce5907c8ea44791a9da84eac5641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &5720489233936896270

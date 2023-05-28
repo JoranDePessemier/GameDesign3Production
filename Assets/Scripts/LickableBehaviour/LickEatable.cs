@@ -83,6 +83,7 @@ public class LickEatable : MonoBehaviour, ILickable, IRespawn
         _collision.enabled = false;
         _inCollision = false;
         _body.useGravity = false;
+        _body.velocity = Vector3.zero;
         OnEaten(EventArgs.Empty);
     }
 

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5159682122872324713}
   - component: {fileID: 4978184888469177688}
-  - component: {fileID: 237052971102345478}
   m_Layer: 6
   m_Name: Wall2
   m_TagString: Untagged
@@ -50,19 +49,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &237052971102345478
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5157113111663736247}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.5597064, y: 3.594656, z: 4.6161184}
-  m_Center: {x: -0.121041805, y: -0.000000059604645, z: 0.006004096}
 --- !u!1 &6253960201930824405
 GameObject:
   m_ObjectHideFlags: 0
