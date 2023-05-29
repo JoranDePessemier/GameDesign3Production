@@ -52,6 +52,7 @@ public class ButtonBehaviour : MonoBehaviour, IActivator
 
     private void LickEatable_Eaten(object sender, EventArgs e)
     {
+        DeActivate();
         _canActivate = false;
     }
 

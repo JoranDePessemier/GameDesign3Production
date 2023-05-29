@@ -59,6 +59,14 @@ public class CharacterMovement : MonoBehaviour
 
 
     private Vector3 _velocity;
+
+    public Vector3 Velocity
+    {
+        get { return _velocity; }
+        set { _velocity = value; }
+    }
+
+
     private Vector3 _inputVector;
 
 
