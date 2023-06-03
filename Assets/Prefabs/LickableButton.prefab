@@ -410,3 +410,5 @@ MonoBehaviour:
           m_StringArgument: Deactivated
           m_BoolArgument: 0
         m_CallState: 2
+  _lineRenderer: {fileID: 1149647671929099165, guid: a1a07b68b0993834db2bb77fc2d8ba8f,
+    type: 3}

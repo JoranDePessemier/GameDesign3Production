@@ -89,6 +89,24 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SeeConnectionsPressed"",
+                    ""type"": ""Button"",
+                    ""id"": ""cfa94b65-6f96-49ee-9caa-0e54b1433210"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SeeConnectionsReleased"",
+                    ""type"": ""Button"",
+                    ""id"": ""497536bc-83ed-4927-bc13-83c77f10846a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -168,6 +186,28 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""JumpHolding"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""78798b1c-8c88-4326-a42e-b57a0c1e1bea"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SeeConnectionsPressed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2adc6e79-6397-41e9-990f-72d967bbd5e4"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SeeConnectionsReleased"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -183,6 +223,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_PlayerControls_TonguePressed = m_PlayerControls.FindAction("TonguePressed", throwIfNotFound: true);
         m_PlayerControls_TongueReleased = m_PlayerControls.FindAction("TongueReleased", throwIfNotFound: true);
         m_PlayerControls_JumpHolding = m_PlayerControls.FindAction("JumpHolding", throwIfNotFound: true);
+        m_PlayerControls_SeeConnectionsPressed = m_PlayerControls.FindAction("SeeConnectionsPressed", throwIfNotFound: true);
+        m_PlayerControls_SeeConnectionsReleased = m_PlayerControls.FindAction("SeeConnectionsReleased", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -249,6 +291,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControls_TonguePressed;
     private readonly InputAction m_PlayerControls_TongueReleased;
     private readonly InputAction m_PlayerControls_JumpHolding;
+    private readonly InputAction m_PlayerControls_SeeConnectionsPressed;
+    private readonly InputAction m_PlayerControls_SeeConnectionsReleased;
     public struct PlayerControlsActions
     {
         private @Controls m_Wrapper;
@@ -260,6 +304,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         public InputAction @TonguePressed => m_Wrapper.m_PlayerControls_TonguePressed;
         public InputAction @TongueReleased => m_Wrapper.m_PlayerControls_TongueReleased;
         public InputAction @JumpHolding => m_Wrapper.m_PlayerControls_JumpHolding;
+        public InputAction @SeeConnectionsPressed => m_Wrapper.m_PlayerControls_SeeConnectionsPressed;
+        public InputAction @SeeConnectionsReleased => m_Wrapper.m_PlayerControls_SeeConnectionsReleased;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -290,6 +336,12 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @JumpHolding.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJumpHolding;
                 @JumpHolding.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJumpHolding;
                 @JumpHolding.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJumpHolding;
+                @SeeConnectionsPressed.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSeeConnectionsPressed;
+                @SeeConnectionsPressed.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSeeConnectionsPressed;
+                @SeeConnectionsPressed.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSeeConnectionsPressed;
+                @SeeConnectionsReleased.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSeeConnectionsReleased;
+                @SeeConnectionsReleased.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSeeConnectionsReleased;
+                @SeeConnectionsReleased.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSeeConnectionsReleased;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -315,6 +367,12 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @JumpHolding.started += instance.OnJumpHolding;
                 @JumpHolding.performed += instance.OnJumpHolding;
                 @JumpHolding.canceled += instance.OnJumpHolding;
+                @SeeConnectionsPressed.started += instance.OnSeeConnectionsPressed;
+                @SeeConnectionsPressed.performed += instance.OnSeeConnectionsPressed;
+                @SeeConnectionsPressed.canceled += instance.OnSeeConnectionsPressed;
+                @SeeConnectionsReleased.started += instance.OnSeeConnectionsReleased;
+                @SeeConnectionsReleased.performed += instance.OnSeeConnectionsReleased;
+                @SeeConnectionsReleased.canceled += instance.OnSeeConnectionsReleased;
             }
         }
     }
@@ -328,5 +386,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         void OnTonguePressed(InputAction.CallbackContext context);
         void OnTongueReleased(InputAction.CallbackContext context);
         void OnJumpHolding(InputAction.CallbackContext context);
+        void OnSeeConnectionsPressed(InputAction.CallbackContext context);
+        void OnSeeConnectionsReleased(InputAction.CallbackContext context);
     }
 }

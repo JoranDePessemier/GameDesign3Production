@@ -27,4 +27,9 @@ public class ActivatableTest : Activatable
     {
         _renderer.material = _inactiveMaterial;
     }
+
+    public override Transform GetTransform()
+    {
+        return transform;
+    }
 }

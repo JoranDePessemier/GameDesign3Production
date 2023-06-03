@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Experimental.GlobalIllumination;
+using UnityEngine.InputSystem;
 
 public class ButtonBehaviour : MonoBehaviour, IActivator
 {
@@ -30,17 +32,81 @@ public class ButtonBehaviour : MonoBehaviour, IActivator
     [SerializeField]
     private UnityEvent EventDeActivated;
 
+    [Header("LineRenderer")]
+    [SerializeField]
+    LineRenderer _lineRenderer;
+
+    private List<LineRenderer> _lines = new List<LineRenderer>();
+
+    private Controls _controls;
+
     private bool _canActivate =true;
+    private bool _linesShouldUpdate;
+
+    private Transform _transform;
+
+    private void OnEnable()
+    {
+        _controls.Enable();
+        _controls.PlayerControls.SeeConnectionsPressed.performed += ShowConnections;
+        _controls.PlayerControls.SeeConnectionsReleased.performed += HideConnections;
+    }
+
+    private void HideConnections(InputAction.CallbackContext obj)
+    {
+        foreach(LineRenderer line in _lines)
+        {
+            line.enabled = false;
+        }
+        _linesShouldUpdate = false;
+    }
+
+    private void ShowConnections(InputAction.CallbackContext obj)
+    {
+        foreach (LineRenderer line in _lines)
+        {
+            line.enabled = true;
+        }
+        _linesShouldUpdate=true;
+    }
+
+    private void OnDisable()
+    {
+        _controls.Disable();
+        _controls.PlayerControls.SeeConnectionsPressed.performed -= ShowConnections;
+        _controls.PlayerControls.SeeConnectionsReleased.performed -= HideConnections;
+    }
+
+    private void Awake()
+    {
+        _transform = transform;
+        _controls = new Controls();
+    }
 
 
     private void Start()
     {
         SendPresenceToActivatables();
+        CreateLineRenderers();
 
         if(TryGetComponent<LickEatable>(out LickEatable lickEatable))
         {
             lickEatable.Eaten += LickEatable_Eaten;
             lickEatable.Released += LickEatable_Released;
+        }
+    }
+
+    private void CreateLineRenderers()
+    {
+        foreach(Activatable activatable in _activatableObjects)
+        {
+            LineRenderer lineRenderer = GameObject.Instantiate(_lineRenderer.gameObject,_transform).GetComponent<LineRenderer>();
+
+            lineRenderer.SetPosition(0, _transform.position);
+            lineRenderer.SetPosition(1,activatable.GetTransform().position);
+
+            _lines.Add(lineRenderer);
+            lineRenderer.enabled = false;
         }
     }
 
@@ -59,6 +125,21 @@ public class ButtonBehaviour : MonoBehaviour, IActivator
     private void FixedUpdate()
     {
         Activated = false;
+    }
+
+    private void Update()
+    {
+        if(_linesShouldUpdate)
+        {
+            for (int i = 0; i < _lines.Count; i++)
+            {
+                LineRenderer lineRenderer = _lines[i];
+                lineRenderer.SetPosition(0, _transform.position);
+                lineRenderer.SetPosition(1, _activatableObjects[i].GetTransform().position);
+            }
+        }
+
+        
     }
 
 

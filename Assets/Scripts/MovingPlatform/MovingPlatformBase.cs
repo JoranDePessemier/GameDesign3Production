@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class MovingPlatformBase : Activatable
 {
+    
+
 
     [SerializeField]
     protected Transform[] _movingPoints;
@@ -21,11 +23,13 @@ public class MovingPlatformBase : Activatable
 
     protected bool _canChangePivotPoint = true;
 
+    private Transform _transform;
+
     protected virtual void Awake()
     {
         _currentMovingPointIndex = 0;
         _platformBody.position = _movingPoints[_currentMovingPointIndex].position;
-
+        _transform = _platformBody.transform;
         
     }
 
@@ -62,5 +66,10 @@ public class MovingPlatformBase : Activatable
     public override void Deactivate()
     {
         _activated = !_activated;
+    }
+
+    public override Transform GetTransform()
+    {
+        return _transform;
     }
 }

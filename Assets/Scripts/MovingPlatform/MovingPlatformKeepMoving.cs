@@ -18,6 +18,7 @@ public class MovingPlatformKeepMoving : MovingPlatformBase
 
     protected override void Awake()
     {
+        base.Awake();
         _activated = _startActivated;
     }
 

@@ -67,6 +67,24 @@
                     "processors": "",
                     "interactions": "Hold",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SeeConnectionsPressed",
+                    "type": "Button",
+                    "id": "cfa94b65-6f96-49ee-9caa-0e54b1433210",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SeeConnectionsReleased",
+                    "type": "Button",
+                    "id": "497536bc-83ed-4927-bc13-83c77f10846a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -144,6 +162,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "JumpHolding",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "78798b1c-8c88-4326-a42e-b57a0c1e1bea",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SeeConnectionsPressed",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2adc6e79-6397-41e9-990f-72d967bbd5e4",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SeeConnectionsReleased",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
