@@ -108,4 +108,19 @@ public class MainMenuManager : MonoBehaviour
     {
         RespawnTracker.Instance.RespawnChangedSinceStart = false;
     }
+
+    public void PlayMenuMusic()
+    {
+        MusicManager.Instance.StartNewSong(true);
+    }
+
+    public void PlayGameMusic()
+    {
+        MusicManager.Instance.StartNewSong();
+    }
+
+    public void PlayButtonClickSound()
+    {
+        GlobalAudioManager.Instance.PlaySound("ButtonClick");
+    }
 }
