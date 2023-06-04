@@ -34,21 +34,28 @@ public class RespawnTracker : MonoBehaviour
 
     private void Awake()
     {
+
+
         if (RespawnTracker.Instance != null)
         {
+            if (RespawnTracker.Instance.RespawnChangedSinceStart)
+            {
+                FindObjectOfType<MainMenuManager>().gameObject.SetActive(false);
+            }
+
             Destroy(this.gameObject);
+            
+
         }
         else
         {
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
+
+
     }
 
-    private void Update()
-    {
-        Debug.Log(RespawnPoint.ToString());
-    }
 
 
 }
