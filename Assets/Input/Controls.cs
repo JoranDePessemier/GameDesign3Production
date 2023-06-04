@@ -107,6 +107,33 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=1)"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""StandStill"",
+                    ""type"": ""Button"",
+                    ""id"": ""d937cc77-aa48-4a18-9d4b-883ed4e74c0b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Debug_NextLevel"",
+                    ""type"": ""Button"",
+                    ""id"": ""f0294752-b0b2-4b8a-bf4f-9a92730ffc09"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Debug_PreviousLevel"",
+                    ""type"": ""Button"",
+                    ""id"": ""1d7fa64b-54a9-44de-84ea-55709c1fbd84"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -208,6 +235,50 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""SeeConnectionsReleased"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4d73db0f-b089-4c3f-a51a-91086ebed07a"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""StandStill"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""677cbe9d-0f61-45cd-bfac-603d8028fb36"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""StandStill"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""da26dde3-7e48-4ce1-b0ec-1d4941602ef1"",
+                    ""path"": ""<Keyboard>/f2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Debug_NextLevel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f6eda660-d882-4ba0-b55c-86aa60014045"",
+                    ""path"": ""<Keyboard>/f1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Debug_PreviousLevel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -225,6 +296,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_PlayerControls_JumpHolding = m_PlayerControls.FindAction("JumpHolding", throwIfNotFound: true);
         m_PlayerControls_SeeConnectionsPressed = m_PlayerControls.FindAction("SeeConnectionsPressed", throwIfNotFound: true);
         m_PlayerControls_SeeConnectionsReleased = m_PlayerControls.FindAction("SeeConnectionsReleased", throwIfNotFound: true);
+        m_PlayerControls_StandStill = m_PlayerControls.FindAction("StandStill", throwIfNotFound: true);
+        m_PlayerControls_Debug_NextLevel = m_PlayerControls.FindAction("Debug_NextLevel", throwIfNotFound: true);
+        m_PlayerControls_Debug_PreviousLevel = m_PlayerControls.FindAction("Debug_PreviousLevel", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -293,6 +367,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControls_JumpHolding;
     private readonly InputAction m_PlayerControls_SeeConnectionsPressed;
     private readonly InputAction m_PlayerControls_SeeConnectionsReleased;
+    private readonly InputAction m_PlayerControls_StandStill;
+    private readonly InputAction m_PlayerControls_Debug_NextLevel;
+    private readonly InputAction m_PlayerControls_Debug_PreviousLevel;
     public struct PlayerControlsActions
     {
         private @Controls m_Wrapper;
@@ -306,6 +383,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         public InputAction @JumpHolding => m_Wrapper.m_PlayerControls_JumpHolding;
         public InputAction @SeeConnectionsPressed => m_Wrapper.m_PlayerControls_SeeConnectionsPressed;
         public InputAction @SeeConnectionsReleased => m_Wrapper.m_PlayerControls_SeeConnectionsReleased;
+        public InputAction @StandStill => m_Wrapper.m_PlayerControls_StandStill;
+        public InputAction @Debug_NextLevel => m_Wrapper.m_PlayerControls_Debug_NextLevel;
+        public InputAction @Debug_PreviousLevel => m_Wrapper.m_PlayerControls_Debug_PreviousLevel;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -342,6 +422,15 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @SeeConnectionsReleased.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSeeConnectionsReleased;
                 @SeeConnectionsReleased.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSeeConnectionsReleased;
                 @SeeConnectionsReleased.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSeeConnectionsReleased;
+                @StandStill.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnStandStill;
+                @StandStill.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnStandStill;
+                @StandStill.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnStandStill;
+                @Debug_NextLevel.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDebug_NextLevel;
+                @Debug_NextLevel.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDebug_NextLevel;
+                @Debug_NextLevel.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDebug_NextLevel;
+                @Debug_PreviousLevel.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDebug_PreviousLevel;
+                @Debug_PreviousLevel.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDebug_PreviousLevel;
+                @Debug_PreviousLevel.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDebug_PreviousLevel;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -373,6 +462,15 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @SeeConnectionsReleased.started += instance.OnSeeConnectionsReleased;
                 @SeeConnectionsReleased.performed += instance.OnSeeConnectionsReleased;
                 @SeeConnectionsReleased.canceled += instance.OnSeeConnectionsReleased;
+                @StandStill.started += instance.OnStandStill;
+                @StandStill.performed += instance.OnStandStill;
+                @StandStill.canceled += instance.OnStandStill;
+                @Debug_NextLevel.started += instance.OnDebug_NextLevel;
+                @Debug_NextLevel.performed += instance.OnDebug_NextLevel;
+                @Debug_NextLevel.canceled += instance.OnDebug_NextLevel;
+                @Debug_PreviousLevel.started += instance.OnDebug_PreviousLevel;
+                @Debug_PreviousLevel.performed += instance.OnDebug_PreviousLevel;
+                @Debug_PreviousLevel.canceled += instance.OnDebug_PreviousLevel;
             }
         }
     }
@@ -388,5 +486,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         void OnJumpHolding(InputAction.CallbackContext context);
         void OnSeeConnectionsPressed(InputAction.CallbackContext context);
         void OnSeeConnectionsReleased(InputAction.CallbackContext context);
+        void OnStandStill(InputAction.CallbackContext context);
+        void OnDebug_NextLevel(InputAction.CallbackContext context);
+        void OnDebug_PreviousLevel(InputAction.CallbackContext context);
     }
 }

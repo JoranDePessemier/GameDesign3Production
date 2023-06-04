@@ -21,6 +21,7 @@ public class LeverBehaviour : MonoBehaviour, ILickable, IActivator
         set { _activatableObjects = value; }
     }
 
+    public Sprite UIIcon => null;
 
     [SerializeField]
     private UnityEvent Activated;
@@ -94,6 +95,8 @@ public class LeverBehaviour : MonoBehaviour, ILickable, IActivator
             lineRenderer.SetPosition(1, activatable.GetTransform().position);
 
             _lines.Add(lineRenderer);
+
+            lineRenderer.enabled = false;
         }
     }
 

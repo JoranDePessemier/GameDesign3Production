@@ -61,14 +61,14 @@ public class PlayerLicking : MonoBehaviour
         _tongueCollider = _transform.GetComponent<Collider>();
         _tongueCollider.enabled = false;
 
-        _controls.PlayerControls.TonguePressed.performed += TonguePressed;
-        _controls.PlayerControls.TongueReleased.performed += TongueReleased;
+
 
         _startingPosition = _transform.localPosition;
 
         _renderer = this.GetComponent<Renderer>();
 
     }
+
 
     private void TongueReleased(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
@@ -159,6 +159,15 @@ public class PlayerLicking : MonoBehaviour
     private void OnEnable()
     {
         _controls.Enable();
+        _controls.PlayerControls.TonguePressed.performed += TonguePressed;
+        _controls.PlayerControls.TongueReleased.performed += TongueReleased;
+    }
+
+    private void OnDisable()
+    {
+        _controls.Enable();
+        _controls.PlayerControls.TonguePressed.performed -= TonguePressed;
+        _controls.PlayerControls.TongueReleased.performed -= TongueReleased;
     }
 
     private void OnTriggerEnter(Collider other)

@@ -8,6 +8,8 @@ public interface ILickable
 
     GameObject AttachedObject { get; }
 
+    Sprite UIIcon { get; }
+
     void HoldingLicked(Transform playerTransform);
 
     void Licked(Transform playerTransform);

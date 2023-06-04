@@ -16,7 +16,7 @@ public class PlayerRespawning : MonoBehaviour, IRespawn
 
     private void Start()
     {
-        _movementScript.CanMove = false;
+        _movementScript.CanPerformControllerMove = false;
         if (RespawnTracker.Instance.RespawnChangedSinceStart)
         {
 
@@ -34,7 +34,7 @@ public class PlayerRespawning : MonoBehaviour, IRespawn
 
         yield return new WaitForFixedUpdate();
         yield return new WaitForFixedUpdate();
-        _movementScript.CanMove = true;
+        _movementScript.CanPerformControllerMove = true;
     }
 
     public void Respawn()

@@ -16,8 +16,12 @@ public class SpawnPoint : MonoBehaviour
     [SerializeField]
     private Transform _spawnPosition;
 
+    public Transform SpawnPosition => _spawnPosition;
+
     [SerializeField]
     private LayerMask _playerLayer;
+
+    public event EventHandler<EventArgs> CheckPointActivated;
 
 
 
@@ -28,6 +32,7 @@ public class SpawnPoint : MonoBehaviour
         if((_playerLayer & (1 << collisionObject.layer)) != 0)
         {
             RespawnTracker.Instance.SetSpawn(this, _spawnPosition);
+            OnCheckPointActivated(EventArgs.Empty);
         }
     }
 
@@ -40,6 +45,12 @@ public class SpawnPoint : MonoBehaviour
     internal void SetAsInActive()
     {
         _deactivated.Invoke();
+    }
+
+    private void OnCheckPointActivated(EventArgs eventArgs)
+    {
+        var handler = CheckPointActivated;
+        handler?.Invoke(this, eventArgs);
     }
 
 }

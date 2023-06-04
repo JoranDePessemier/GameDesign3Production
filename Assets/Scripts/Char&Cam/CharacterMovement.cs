@@ -48,8 +48,10 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField]
     float _sphereCastRadius;
 
-    public bool CanMove { get; set; } = true;
+    public bool CanPerformControllerMove { get; set; } = true;
     public bool CanJump { get; set; } = true;
+
+    private bool _canMove = true;
 
     Vector3 _movementOffset;
 
@@ -99,6 +101,7 @@ public class CharacterMovement : MonoBehaviour
 
         _isHoldingJump = _controls.PlayerControls.JumpHolding.IsPressed();
 
+        _canMove = !_controls.PlayerControls.StandStill.IsPressed();
     }
 
     private void FixedUpdate()
@@ -109,7 +112,7 @@ public class CharacterMovement : MonoBehaviour
         ApplySpeedLimitation();
         ApplyJump();
         CalculateMovingObjectOffset();
-        if (CanMove)
+        if (CanPerformControllerMove)
         {
             _charCtrl.Move(_velocity * Time.deltaTime + _movementOffset);
         }
@@ -147,8 +150,11 @@ public class CharacterMovement : MonoBehaviour
 
     private void ApplyMovement()
     {
+        if(_canMove)
+        {
+            _velocity += _transform.forward * _inputVector.magnitude * _acceleration;
+        }
 
-        _velocity += _transform.forward * _inputVector.magnitude * _acceleration;
 
     }
 

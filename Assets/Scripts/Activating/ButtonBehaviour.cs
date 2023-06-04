@@ -147,7 +147,9 @@ public class ButtonBehaviour : MonoBehaviour, IActivator
     {
         GameObject collisionObject = other.gameObject;
 
-        if(((_activatingLayer & (1 << collisionObject.layer)) != 0) && collisionObject.GetComponent<Collider>().enabled && _canActivate)
+        Collider collider = collisionObject.GetComponent<Collider>();
+
+        if(((_activatingLayer & (1 << collisionObject.layer)) != 0) && collider.enabled && _canActivate)
         {
             Activated = true;
         }
