@@ -93,14 +93,16 @@ public class LickEatable : MonoBehaviour, ILickable, IRespawn
 
     public  void Licked(Transform playerTransform)
     {
+        OnEaten(EventArgs.Empty);
+        _licked?.Invoke();
         GameObject.Instantiate(_spawnObjectWhenEaten,_transform.position,_transform.rotation);
         _transform.gameObject.SetActive(false);
         _collision.enabled = false;
         _inCollision = false;
         _body.useGravity = false;
         _body.velocity = Vector3.zero;
-        OnEaten(EventArgs.Empty);
-        _licked?.Invoke();
+
+
 
     }
 

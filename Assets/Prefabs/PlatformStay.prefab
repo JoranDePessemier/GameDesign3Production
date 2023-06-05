@@ -112,7 +112,7 @@ MonoBehaviour:
   _movingPoints:
   - {fileID: 4792476528944648824}
   - {fileID: 2771885580310274597}
-  _movingSpeed: 5
+  _movingSpeed: 10
   _platformBody: {fileID: 8136208917895177288}
 --- !u!1 &6531361832469483666
 GameObject:

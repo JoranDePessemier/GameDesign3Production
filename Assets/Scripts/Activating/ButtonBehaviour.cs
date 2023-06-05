@@ -118,7 +118,12 @@ public class ButtonBehaviour : MonoBehaviour, IActivator
 
     private void LickEatable_Eaten(object sender, EventArgs e)
     {
-        DeActivate();
+        if (_previousFrameActivated || Activated)
+        {
+            _previousFrameActivated = false;
+            Activated = false;
+            DeActivate();
+        }
         _canActivate = false;
     }
 
