@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -59,6 +60,8 @@ public class CharacterMovement : MonoBehaviour
     private bool _isJumping;
     private bool _isHoldingJump;
 
+    private bool _previousGrounded;
+
 
     private Vector3 _velocity;
 
@@ -71,6 +74,8 @@ public class CharacterMovement : MonoBehaviour
 
     private Vector3 _inputVector;
 
+    private Vector3 _previousInputVector;
+
 
     private void Awake()
     {
@@ -82,7 +87,7 @@ public class CharacterMovement : MonoBehaviour
 
         _transform = this.transform;
 
-        
+        _previousGrounded = _charCtrl.isGrounded;
     }
 
     private void Jump(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -90,6 +95,7 @@ public class CharacterMovement : MonoBehaviour
         if (CanJump)
         {
             _jump = true;
+            
         }
 
     }
@@ -99,9 +105,21 @@ public class CharacterMovement : MonoBehaviour
         _inputVector.x = _controls.PlayerControls.Movement.ReadValue<Vector2>().x;
         _inputVector.z = _controls.PlayerControls.Movement.ReadValue<Vector2>().y;
 
+        if((_inputVector != Vector3.zero && _previousInputVector == Vector3.zero && _charCtrl.isGrounded) || (_charCtrl.isGrounded && !_previousGrounded && _inputVector != Vector3.zero))
+        {
+            GlobalAudioManager.Instance?.PlaySound("Running");
+        }
+        else if(_inputVector == Vector3.zero && _previousInputVector != Vector3.zero || !_charCtrl.isGrounded)
+        {
+            GlobalAudioManager.Instance?.StopSound("Running");
+        }
+
         _isHoldingJump = _controls.PlayerControls.JumpHolding.IsPressed();
 
         _canMove = !_controls.PlayerControls.StandStill.IsPressed();
+
+        _previousInputVector = _inputVector;
+        _previousGrounded = _charCtrl.isGrounded;
     }
 
     private void FixedUpdate()
@@ -228,6 +246,7 @@ public class CharacterMovement : MonoBehaviour
         {
             // We add the jumpforce, calculated in the Start function
             _velocity.y += _jumpForce;
+            GlobalAudioManager.Instance?.PlaySound("Jump");
             _isJumping = true;
         }
         _jump = false;

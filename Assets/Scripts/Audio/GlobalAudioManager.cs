@@ -10,7 +10,7 @@ public class GlobalAudioManager : LocalAudioManager
 
     protected override void Awake()
     {
-        if (MusicManager.Instance != null)
+        if (GlobalAudioManager.Instance != null)
         {
             Destroy(this.gameObject);
         }

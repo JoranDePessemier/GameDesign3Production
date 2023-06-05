@@ -87,6 +87,7 @@ public class PlayerLicking : MonoBehaviour
         if (_state == TongueState.Holding && HoldingObject == null)
         {
             _state = TongueState.OutGoing;
+            GlobalAudioManager.Instance.PlaySound("Tongue");
         }
     }
 
@@ -119,6 +120,8 @@ public class PlayerLicking : MonoBehaviour
             case TongueState.OutGoing:
 
                 _tongueCollider.enabled = true;
+
+                
 
                 zScale = Mathf.MoveTowards(zScale, _tongueMaxScale, _tongueMoveSpeed * Time.deltaTime);
                 _transform.localScale = new Vector3(_transform.localScale.x, _transform.localScale.y, zScale);
@@ -181,7 +184,8 @@ public class PlayerLicking : MonoBehaviour
             {
                 Debug.LogWarning($"{collisionObject} is in the lickable layer and does not have a lickable class attached");
             }
-            
+
+            GlobalAudioManager.Instance.PlaySound("Lick");
 
             lickCollision.Licked(_playerTransform);
 

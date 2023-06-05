@@ -36,5 +36,10 @@ public class SoundEffect
 
     public bool Is3dSound => _is3dSound;
 
+    [SerializeField]
+    private float _maxDistance;
+
+    public float MaxDistance => _maxDistance;   
+
     public AudioSource source { get; set; }
 }

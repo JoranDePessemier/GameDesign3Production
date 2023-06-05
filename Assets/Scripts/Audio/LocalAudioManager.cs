@@ -29,6 +29,8 @@ public class LocalAudioManager : MonoBehaviour
         sound.source.playOnAwake = false;
         sound.source.loop = sound.Looping;
         sound.source.spatialBlend = sound.Is3dSound ? 1 : 0;
+        sound.source.maxDistance = sound.MaxDistance;
+        sound.source.rolloffMode = AudioRolloffMode.Linear;
     }
 
     public void PlaySound(string name)

@@ -413,6 +413,38 @@ MonoBehaviour:
           m_StringArgument: Activate
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7150234165109775590}
+        m_TargetAssemblyTypeName: LocalAudioManager, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Spring
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7150234165109775590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751004461908501977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e01c2f8df1d45f488fd2236b1bed367, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundsToAdd:
+  - _name: Spring
+    _clip: {fileID: 8300000, guid: c21de63739c8c0547bf8fa9d8c48b1c4, type: 3}
+    _volume: 1
+    _looping: 0
+    _pitchVariation: {x: 0.8, y: 1.2}
+    _is3dSound: 1
+    _maxDistance: 20
 --- !u!4 &7765166444921498200 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1706056724217612424, guid: fc76f81bf84e1fb408c3e8e3753afbcd,

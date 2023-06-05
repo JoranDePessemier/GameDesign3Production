@@ -411,6 +411,18 @@ MonoBehaviour:
           m_StringArgument: Activated
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 500642620575788075}
+        m_TargetAssemblyTypeName: LocalAudioManager, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Click
+          m_BoolArgument: 0
+        m_CallState: 2
   EventDeActivated:
     m_PersistentCalls:
       m_Calls:
@@ -426,8 +438,40 @@ MonoBehaviour:
           m_StringArgument: Deactivated
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 500642620575788075}
+        m_TargetAssemblyTypeName: LocalAudioManager, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Click
+          m_BoolArgument: 0
+        m_CallState: 2
   _lineRenderer: {fileID: 1149647671929099165, guid: a1a07b68b0993834db2bb77fc2d8ba8f,
     type: 3}
+--- !u!114 &500642620575788075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2042298362482609112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e01c2f8df1d45f488fd2236b1bed367, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundsToAdd:
+  - _name: Click
+    _clip: {fileID: 8300000, guid: da75e30423bd6a54bafce53ceb0d4c9c, type: 3}
+    _volume: 1
+    _looping: 0
+    _pitchVariation: {x: 0.8, y: 1.2}
+    _is3dSound: 1
+    _maxDistance: 20
 --- !u!4 &8059204112574137433 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1706056724217612424, guid: fc76f81bf84e1fb408c3e8e3753afbcd,
