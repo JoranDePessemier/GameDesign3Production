@@ -42,6 +42,9 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField]
     private float _gravityMultiplierJumpRelease;
 
+    [SerializeField]
+    private float _coyoteTime;
+
     [Header("Moving Offset Calculation")]
     [SerializeField]
     Vector3 _sphereCastPosition;
@@ -77,6 +80,8 @@ public class CharacterMovement : MonoBehaviour
     private Vector3 _inputVector;
 
     private Vector3 _previousInputVector;
+
+    private bool _coyote;
 
 
     private void Awake()
@@ -121,9 +126,23 @@ public class CharacterMovement : MonoBehaviour
 
         _canMove = !_controls.PlayerControls.StandStill.IsPressed();
 
+
+        if (!_charCtrl.isGrounded && _previousGrounded && !_isJumping)
+        {
+            StartCoroutine(CountCoyote());
+        }
+
         _previousInputVector = _inputVector;
         _previousGrounded = _charCtrl.isGrounded;
         _previousTriggersPressed = _triggersPressed;
+
+    }
+
+    private IEnumerator CountCoyote()
+    {
+        _coyote = true;
+        yield return new WaitForSeconds(_coyoteTime);
+        _coyote = false;
     }
 
     private void FixedUpdate()
@@ -246,9 +265,10 @@ public class CharacterMovement : MonoBehaviour
 
     private void ApplyJump()
     {
-        if (_jump && _charCtrl.isGrounded)
+        if (_jump && (_charCtrl.isGrounded || _coyote))
         {
             // We add the jumpforce, calculated in the Start function
+            _velocity.y = 0;
             _velocity.y += _jumpForce;
             GlobalAudioManager.Instance?.PlaySound("Jump");
             _isJumping = true;

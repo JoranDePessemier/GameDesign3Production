@@ -344,7 +344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerTransform: {fileID: 5720489233606220742}
   _tongueMoveSpeed: 20
-  _tongueMaxScale: 7
+  _tongueMaxScale: 10
   _lickableLayer:
     serializedVersion: 2
     m_Bits: 1152
@@ -472,6 +472,7 @@ MonoBehaviour:
   _jumpForce: 5
   _gravityMultiplierHoldingJump: 0.8
   _gravityMultiplierJumpRelease: 2
+  _coyoteTime: 0.3
   _sphereCastPosition: {x: 0, y: -0.67, z: 0}
   _sphereCastRadius: 0.5
 --- !u!114 &5720489233606220746

@@ -199,6 +199,7 @@ MonoBehaviour:
   _platformBody: {fileID: 8136208917895177288}
   _circularMovement: 0
   _startActivated: 0
+  _waitingTime: 1
 --- !u!1 &7691126830340948453
 GameObject:
   m_ObjectHideFlags: 0
