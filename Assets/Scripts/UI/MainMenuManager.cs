@@ -96,12 +96,12 @@ public class MainMenuManager : MonoBehaviour
 
     public void SetScaleZero(GameObject gameObject)
     {
-        gameObject.LeanScale(Vector3.zero, 0).setIgnoreTimeScale(true); ;
+        gameObject.LeanScale(Vector3.zero, 0.01f).setIgnoreTimeScale(true).setEase(LeanTweenType.linear);
     }
 
     public void SetAlphaZero(RectTransform gameObject)
     {
-        LeanTween.alpha(gameObject, 0, 0).setIgnoreTimeScale(true);
+        LeanTween.alpha(gameObject, 0, 0.001f).setIgnoreTimeScale(true).setEase(LeanTweenType.linear);
     }
 
     public void ResetSpawn()
