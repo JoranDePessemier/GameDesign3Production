@@ -61,6 +61,8 @@ public class CharacterMovement : MonoBehaviour
     private bool _isHoldingJump;
 
     private bool _previousGrounded;
+    private bool _triggersPressed;
+    private bool _previousTriggersPressed;
 
 
     private Vector3 _velocity;
@@ -104,12 +106,13 @@ public class CharacterMovement : MonoBehaviour
     {
         _inputVector.x = _controls.PlayerControls.Movement.ReadValue<Vector2>().x;
         _inputVector.z = _controls.PlayerControls.Movement.ReadValue<Vector2>().y;
+        _triggersPressed = _controls.PlayerControls.StandStill.IsPressed();
 
-        if((_inputVector != Vector3.zero && _previousInputVector == Vector3.zero && _charCtrl.isGrounded) || (_charCtrl.isGrounded && !_previousGrounded && _inputVector != Vector3.zero))
+        if((_inputVector != Vector3.zero && _previousInputVector == Vector3.zero && _charCtrl.isGrounded) || (_charCtrl.isGrounded && !_previousGrounded && _inputVector != Vector3.zero) || (!_triggersPressed && _previousTriggersPressed && _inputVector != Vector3.zero))
         {
             GlobalAudioManager.Instance?.PlaySound("Running");
         }
-        else if(_inputVector == Vector3.zero && _previousInputVector != Vector3.zero || !_charCtrl.isGrounded)
+        else if(_inputVector == Vector3.zero && _previousInputVector != Vector3.zero || !_charCtrl.isGrounded || _triggersPressed)
         {
             GlobalAudioManager.Instance?.StopSound("Running");
         }
@@ -120,6 +123,7 @@ public class CharacterMovement : MonoBehaviour
 
         _previousInputVector = _inputVector;
         _previousGrounded = _charCtrl.isGrounded;
+        _previousTriggersPressed = _triggersPressed;
     }
 
     private void FixedUpdate()
