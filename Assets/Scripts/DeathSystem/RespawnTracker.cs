@@ -43,6 +43,7 @@ public class RespawnTracker : MonoBehaviour
                 FindObjectOfType<MainMenuManager>().gameObject.SetActive(false);
             }
 
+
             Destroy(this.gameObject);
             
 
@@ -51,6 +52,8 @@ public class RespawnTracker : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
+
+      
         }
 
 

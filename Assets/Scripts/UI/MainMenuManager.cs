@@ -21,7 +21,11 @@ public class MainMenuManager : MonoBehaviour
     private void Start()
     {
         SetTimeScale(0f);
-        _startScene.Invoke();
+        if(RespawnTracker.Instance == null || !RespawnTracker.Instance.RespawnChangedSinceStart)
+        {
+            _startScene.Invoke();
+        }
+
     }
 
     public void SetTimeScale(float scale)
