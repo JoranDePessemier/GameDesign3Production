@@ -155,7 +155,7 @@ MonoBehaviour:
     _clip: {fileID: 8300000, guid: 3a5ce56779fdf654b81f2e889227c700, type: 3}
     _volume: 1
     _looping: 0
-    _pitchVariation: {x: 0.8, y: 1.2}
+    _pitchVariation: {x: 1, y: 1}
     _is3dSound: 1
     _maxDistance: 20
 --- !u!1 &1821223101630870273

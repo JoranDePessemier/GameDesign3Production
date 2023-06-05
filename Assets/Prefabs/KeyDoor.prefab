@@ -63,6 +63,8 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 8
+  _particles: {fileID: 6562775283327064910, guid: 42495585ba0814b48ba3a766acec5329,
+    type: 3}
 --- !u!1001 &851376277285891321
 PrefabInstance:
   m_ObjectHideFlags: 0

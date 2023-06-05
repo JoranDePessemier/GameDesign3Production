@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class KeyDoorBehaviour : MonoBehaviour, ICharacterHit
@@ -15,10 +16,16 @@ public class KeyDoorBehaviour : MonoBehaviour, ICharacterHit
     [SerializeField]
     private LayerMask _playerLayer;
 
+    [SerializeField]
+    private GameObject _particles;
+
+    private Transform _transform;
+
 
     void Awake()
     {
         _lickingScript = FindObjectOfType<PlayerLicking>();
+        _transform = transform;
 
     }
 
@@ -51,6 +58,7 @@ public class KeyDoorBehaviour : MonoBehaviour, ICharacterHit
 
     private void DoorOpen()
     {
+        GameObject.Instantiate(_particles, _transform.position, _transform.rotation);
         this.gameObject.SetActive(false);
         _lickingScript.RemoveCurrentHoldingObject();
     }

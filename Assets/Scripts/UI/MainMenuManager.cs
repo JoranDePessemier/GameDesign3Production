@@ -123,4 +123,9 @@ public class MainMenuManager : MonoBehaviour
     {
         GlobalAudioManager.Instance.PlaySound("ButtonClick");
     }
+
+    public void PlayWaterSplash()
+    {
+        GlobalAudioManager.Instance.PlaySound("Splash");
+    }
 }

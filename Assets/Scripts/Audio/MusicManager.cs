@@ -41,7 +41,8 @@ public class MusicManager : MonoBehaviour
             CreateSource(music);
         }
         CreateSource(_menuMusic);
-        StartNewSong(true);
+        _menuMusic.source.Play();
+        _currentPlayingMusic = _menuMusic;
     }
 
     private void CreateSource(Music music)
